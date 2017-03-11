@@ -143,32 +143,22 @@ def domian_exe(header, domain_extension, buff):
       _url_country = url_country.replace(" ", "+")
       your_current_country = json_data[your_cn_code]["CountryName"]
       _your_current_country = your_current_country.replace(" ", "+")
-      if url_cn_code == "US":
-        # This time grant to browse
-        global us_counter
-        us_counter += 1
-        if us_counter <= 1:
-          print "You have been granted visa to browse for United States of America for the next 14 days"
-          alert_message = "You have been granted visa to browse for United States of America for the next 14 days"
-          p_voice_alert(alert_message)
-        else:
-          print "You have been granted visa to browse for United States of America for the next 14 days"
-      else:
-        print "you need a visa to travel to:", url_country, "from your country:", your_current_country
-        # making voice alerts:
-        alert_message = "Sorry. You need a visa to travel to this domain. Please contact the"
-        n_voice_alert(alert_message, url_country)
-        alert_message = "We will be closing this tab in 5 seconds after this message ends. Happy Browsing"
-        p_voice_alert(alert_message)
+      
+      print "you need a visa to travel to:", url_country, "from your country:", your_current_country
+      # making voice alerts:
+      alert_message = "Sorry. You need a visa to travel to this domain. Please contact the"
+      n_voice_alert(alert_message, url_country)
+      alert_message = "We will be closing this tab in 5 seconds after this message ends. Happy Browsing"
+      p_voice_alert(alert_message)
 
-        # QUIT THE TAB
-        # -- Other part of subprocess calls is down in the main loop and we would already be in the folder
-        # -- as this func is called after other subprocess call(the call to take you to the main folder)
-        time.sleep(5)
-        subprocess.call(["osascript", quitter_script]) # RUN THE QUITTER TAB SCRIPT . We are already in the directory
-        # OPEN a google search page for visa
-        visa_url = "https://www.google.com/#q=visa+for+" + _url_country + "+from+" + _your_current_country
-        webbrowser.open_new_tab(visa_url)
+      # QUIT THE TAB
+      # -- Other part of subprocess calls is down in the main loop and we would already be in the folder
+      # -- as this func is called after other subprocess call(the call to take you to the main folder)
+      time.sleep(5)
+      subprocess.call(["osascript", quitter_script]) # RUN THE QUITTER TAB SCRIPT . We are already in the directory
+      # OPEN a google search page for visa
+      visa_url = "https://www.google.com/#q=visa+for+" + _url_country + "+from+" + _your_current_country
+      webbrowser.open_new_tab(visa_url)
 
     else:
       print "you don't need a visa."
